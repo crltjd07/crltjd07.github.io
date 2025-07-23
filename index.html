@@ -1,7 +1,576 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carl Francis Encallado - Computer Engineering Student</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e6ed;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0d1a 30%, #2d1b69 70%, #000000 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(218, 112, 214, 0.4);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #da70d6, #ff69b4, #9932cc, #ba55d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            color: #ff69b4;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(218, 112, 214, 0.1);
+            border-radius: 25px;
+            border: 1px solid rgba(218, 112, 214, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(218, 112, 214, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(218, 112, 214, 0.3);
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.8s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(218, 112, 214, 0.15);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #da70d6;
+            border-bottom: 2px solid #da70d6;
+            padding-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff69b4, #9932cc);
+            animation: underlineExpand 1.5s ease-out 0.5s forwards;
+        }
+
+        @keyframes underlineExpand {
+            to { width: 100%; }
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill-item {
+            padding: 1rem;
+            background: rgba(64, 224, 208, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: all 0.5s;
+        }
+
+        .skill-item:hover::before {
+            left: 100%;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.05);
+            background: rgba(64, 224, 208, 0.2);
+            box-shadow: 0 5px 20px rgba(64, 224, 208, 0.3);
+        }
+
+        /* Education Items */
+        .education-item, .cert-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 105, 180, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid #da70d6;
+            transition: all 0.3s ease;
+        }
+
+        .education-item:hover, .cert-item:hover {
+            background: rgba(255, 105, 180, 0.15);
+            transform: translateX(10px);
+            box-shadow: 0 5px 25px rgba(255, 105, 180, 0.2);
+        }
+
+        .education-item h3, .cert-item h3 {
+            color: #ff69b4;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .institution, .organization {
+            color: #da70d6;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .date {
+            color: #a0a9ba;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievements {
+            margin-top: 1rem;
+        }
+
+        .achievements li {
+            margin-bottom: 0.3rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .achievements li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #da70d6;
+        }
+
+        /* Links Section */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .link-item {
+            padding: 1.5rem;
+            background: rgba(218, 112, 214, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(218, 112, 214, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .link-item:hover {
+            background: rgba(218, 112, 214, 0.2);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(218, 112, 214, 0.3);
+            color: #da70d6;
+        }
+
+        .link-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #ff69b4;
+        }
+
+        /* Languages */
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 105, 180, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .language-item:hover {
+            background: rgba(255, 105, 180, 0.2);
+            transform: translateX(5px);
+        }
+
+        .proficiency {
+            color: #da70d6;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Loading Animation */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Carl Francis Encallado</h1>
+            <div class="subtitle">Computer Engineering Student</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>Mauban, Quezon, Philippines 4330</span>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>+639694449441</span>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <span>carlfrancisencallado@gmail.com</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- About -->
+        <section class="section fade-in">
+            <h2>About Me</h2>
+            <p>Effective Student committed to learning, developing skills in Computer Engineering and team contribution. Self-directed and energetic with superior performance in both autonomous or collaborative environments working independently and collaborating with others on group projects, showcasing exceptional teamwork and collaboration alongside advanced MS Office skills. Excelled at elevating event experiences through meticulous planning and effective communication, significantly enhancing operational efficiency. Demonstrates a positive attitude and leadership qualities, committed to delivering outstanding results.</p>
+        </section>
+
+        <!-- Professional Links -->
+        <section class="section fade-in">
+            <h2>Professional Links</h2>
+            <div class="links-grid">
+                <a href="https://facebook.com/crltjd" class="link-item" target="_blank">
+                    <div class="link-title">Facebook Profile</div>
+                    <div>Professional networking and updates</div>
+                </a>
+                <a href="https://github.com/crltjd07" class="link-item" target="_blank">
+                    <div class="link-title">GitHub Repository</div>
+                    <div>Software & Web Development Projects</div>
+                </a>
+                <a href="https://linkedin.com/in/carlfrancisencallado/" class="link-item" target="_blank">
+                    <div class="link-title">LinkedIn</div>
+                    <div>Professional network and career</div>
+                </a>
+                <a href="https://crltjd07.github.io/" class="link-item" target="_blank">
+                    <div class="link-title">GitHub Pages</div>
+                    <div>Live Web Projects Portfolio</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="section fade-in">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">Attention to Detail</div>
+                <div class="skill-item">Computer Skills</div>
+                <div class="skill-item">Data Entry</div>
+                <div class="skill-item">Documentation & Reporting</div>
+                <div class="skill-item">Leadership Qualities</div>
+                <div class="skill-item">MS Office</div>
+                <div class="skill-item">Positive Attitude</div>
+                <div class="skill-item">Recordkeeping</div>
+                <div class="skill-item">Team Collaboration</div>
+                <div class="skill-item">Teamwork</div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section fade-in">
+            <h2>Education</h2>
+            
+            <div class="education-item">
+                <h3>Bachelor of Science in Computer Engineering</h3>
+                <div class="institution">Southern Luzon State University – Lucban, Quezon, Philippines</div>
+                <div class="date">Expected Graduation: August 2027</div>
+                <div class="achievements">
+                    <ul>
+                        <li>1.50 GWA (First Year)</li>
+                        <li>1.44 GWA (Second Year)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="education-item">
+                <h3>High School Diploma (STEM)</h3>
+                <div class="institution">Manuel S. Enverga Memorial School of Arts and Trades – Mauban, Quezon, Philippines</div>
+                <div class="date">Graduated: June 2021</div>
+                <div class="achievements">
+                    <ul>
+                        <li>With High Honors Awardee (97% GWA)</li>
+                        <li>Outstanding Performance in Arts</li>
+                        <li>Outstanding Performance in Communication Arts</li>
+                        <li>Outstanding Performance in Science</li>
+                        <li>Outstanding Performance in Mathematics</li>
+                        <li>Research Award</li>
+                        <li>SSLG Service Award (G12 Representative)</li>
+                        <li>BKD Service Award (Treasurer)</li>
+                        <li>Philippine Senate Gold Medal Award for Academic Excellence</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="education-item">
+                <h3>Vocational School Completer (Computer Software Servicing)</h3>
+                <div class="institution">Manuel S. Enverga Memorial School of Arts and Trades – Mauban, Quezon, Philippines</div>
+                <div class="date">December 2023</div>
+                <div class="achievements">
+                    <ul>
+                        <li>With High Honors Awardee (97% GWA)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section class="section fade-in">
+            <h2>Certifications</h2>
+            
+            <div class="cert-item">
+                <h3>Certificate of Participation - Resilience Hour: Disaster Response</h3>
+                <div class="organization">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
+                <div class="date">July 21, 2022</div>
+                <p>Participated in a tech-informed disaster response webinar highlighting digital coordination tools, risk communication systems, and resilience strategies aligned with National Disaster Resilience Month (NDRM).</p>
+            </div>
+
+            <div class="cert-item">
+                <h3>Certificate of Participation - Microfinance Resiliency</h3>
+                <div class="organization">Polytechnic University of the Philippines (PUP)</div>
+                <div class="date">July 23, 2022</div>
+                <p>Explored the role of digital innovation in sustaining microfinance systems during global disruptions. Gained insights into fintech adaptation, remote financial services, and inclusive economic technologies.</p>
+            </div>
+
+            <div class="cert-item">
+                <h3>Certificate of Participation - Disaster Rehabilitation and Recovery</h3>
+                <div class="organization">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
+                <div class="date">July 28, 2022</div>
+                <p>Attended a tech-aligned webinar discussing digital systems for post-disaster recovery, risk management infrastructure, and resilience-building solutions.</p>
+            </div>
+
+            <div class="cert-item">
+                <h3>Certificate of Student Membership</h3>
+                <div class="organization">Institute of Computer Engineers of the Philippines (ICpEP.SE)</div>
+                <div class="date">November 2023</div>
+                <p>Recognized as a certified student member (ID: R4A-SE-2023N-1185) for the 2023–2024 academic year, with active engagement in emerging tech initiatives, engineering workshops, and industry networking.</p>
+            </div>
+        </section>
+
+        <!-- Languages -->
+        <section class="section fade-in">
+            <h2>Languages</h2>
+            <div class="language-item">
+                <span><strong>English</strong></span>
+                <span class="proficiency">Advanced (C1)</span>
+            </div>
+            <div class="language-item">
+                <span><strong>Filipino</strong></span>
+                <span class="proficiency">Native Speaker</span>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Add floating particles animation
+        function createParticles() {
+            const bgAnimation = document.querySelector('.bg-animation');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random positioning
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Initialize particles when page loads
+        window.addEventListener('load', createParticles);
+
+        // Smooth scroll animation for sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.8s ease-out';
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
