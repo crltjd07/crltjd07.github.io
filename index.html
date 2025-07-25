@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carl Francis Encallado - Computer Engineering Student</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         * {
             margin: 0;
@@ -15,41 +16,17 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #e0e6ed;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0d1a 30%, #2d1b69 70%, #000000 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0d1a 30%, #16102b 70%, #000000 100%);
             min-height: 100vh;
             overflow-x: hidden;
+            user-select: none;
         }
 
         .container {
-            max-width: 1200px;
+            width: 80%;
             margin: 0 auto;
             padding: 2rem;
             position: relative;
-        }
-
-        /* Animated background particles */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(218, 112, 214, 0.4);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
         /* Header Section */
@@ -57,12 +34,78 @@
             text-align: center;
             margin-bottom: 3rem;
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.025);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             animation: slideDown 1s ease-out;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-pic-container {
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #da70d6;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 20px rgba(218, 112, 214, 0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(218, 112, 214, 0.8);
+        }
+
+        .profile-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(218, 112, 214, 0.2), rgba(255, 105, 180, 0.2));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #da70d6;
+            transition: all 0.3s ease;
+        }
+
+        .profile-placeholder:hover {
+            background: linear-gradient(135deg, rgba(218, 112, 214, 0.3), rgba(255, 105, 180, 0.3));
+        }
+
+        .profile-info {
+            text-align: left;
+        }
+
+        .profile-info h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #da70d6, #ff69b4, #9932cc, #ba55d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .profile-info .subtitle {
+            font-size: 1.5rem;
+            color: #ff69b4;
+            margin-bottom: 0;
         }
 
         @keyframes slideDown {
@@ -99,14 +142,14 @@
 
         .contact-info {
             display: flex;
-            justify-content: center;
+            justify-content: right;
             flex-wrap: wrap;
             gap: 2rem;
             margin-top: 1.5rem;
         }
 
         .contact-item {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 1rem;
@@ -126,8 +169,6 @@
         .section {
             margin-bottom: 2.5rem;
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -192,6 +233,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: inline-block;
+            margin: 0.5rem;
         }
 
         .skill-item::before {
@@ -223,6 +266,8 @@
             border-radius: 12px;
             border-left: 4px solid #da70d6;
             transition: all 0.3s ease;
+            display: inline-block;
+            width: 100%;
         }
 
         .education-item:hover, .cert-item:hover {
@@ -255,8 +300,9 @@
 
         .achievements li {
             margin-bottom: 0.3rem;
-            padding-left: 1rem;
+            padding-left: 1.5rem;
             position: relative;
+            list-style: none;
         }
 
         .achievements li::before {
@@ -283,7 +329,8 @@
             transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: inline-block;
+            width: 100%;
         }
 
         .link-item:hover {
@@ -311,6 +358,9 @@
             border-radius: 10px;
             border: 1px solid rgba(255, 105, 180, 0.3);
             transition: all 0.3s ease;
+            display: inline-block;
+            width: 48%;
+            margin-right: 1%;
         }
 
         .language-item:hover {
@@ -323,7 +373,181 @@
             font-weight: 600;
         }
 
-        /* Responsive Design */
+        /* Achievement Gallery */
+        .achievement-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .achievement-item {
+            background: rgba(218, 112, 214, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(218, 112, 214, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        .achievement-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(218, 112, 214, 0.3);
+        }
+
+        .achievement-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(218, 112, 214, 0.2), rgba(255, 105, 180, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #da70d6;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-img:hover {
+            background: linear-gradient(135deg, rgba(218, 112, 214, 0.3), rgba(255, 105, 180, 0.3));
+        }
+
+        .achievement-info {
+            padding: 1.5rem;
+        }
+
+        .achievement-title {
+            color: #ff69b4;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-desc {
+            color: #e0e6ed;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Personal Life Album - Pinterest Style */
+        .pinterest-gallery {
+            columns: 3;
+            column-gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            background: rgba(255, 105, 180, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
+        }
+
+        .gallery-img {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(186, 85, 211, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff69b4;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .gallery-img.small { height: 150px; }
+        .gallery-img.medium { height: 200px; }
+        .gallery-img.large { height: 280px; }
+        .gallery-img.xlarge { height: 350px; }
+
+        .gallery-img:hover {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(186, 85, 211, 0.3));
+        }
+
+        .gallery-caption {
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #e0e6ed;
+            text-align: center;
+        }
+
+        .add-photo-btn {
+            background: rgba(218, 112, 214, 0.2);
+            border: 2px dashed rgba(218, 112, 214, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            color: #da70d6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            break-inside: avoid;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .add-photo-btn:hover {
+            background: rgba(218, 112, 214, 0.3);
+            border-color: rgba(218, 112, 214, 0.8);
+            transform: scale(1.02);
+        }
+
+        .add-photo-btn span {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Diary Entry */
+        .diary-entry {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(186, 85, 211, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid #9932cc;
+            transition: all 0.3s ease;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .diary-entry:hover {
+            background: rgba(186, 85, 211, 0.15);
+            transform: translateX(5px);
+            box-shadow: 0 5px 25px rgba(186, 85, 211, 0.2);
+        }
+
+        .diary-date {
+            color: #ba55d3;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .diary-content {
+            color: #e0e6ed;
+            line-height: 1.6;
+        }
+
+        /* Inline sections */
+        .inline-section {
+            display: inline-block;
+            width: 48%;
+            vertical-align: top;
+            margin-right: 1%;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -349,6 +573,27 @@
             .section h2 {
                 font-size: 1.5rem;
             }
+
+            .inline-section {
+                display: block;
+                width: 100%;
+                margin-right: 0;
+            }
+
+            .language-item {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            .pinterest-gallery {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pinterest-gallery {
+                columns: 1;
+            }
         }
 
         /* Loading Animation */
@@ -363,13 +608,22 @@
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-    
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1>Carl Francis Encallado</h1>
-            <div class="subtitle">Computer Engineering Student</div>
+            <div class="profile-section">
+                <div class="profile-pic-container">
+                    <div class="profile-pic">
+                        <div class="profile-placeholder">
+                            <span><img src="profile.png" alt="Profile Picture"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h1>Carl Francis Encallado</h1>
+                    <div class="subtitle">Computer Engineering Student</div>
+                </div>
+            </div>
             <div class="contact-info">
                 <div class="contact-item">
                     <span>📍</span>
@@ -392,48 +646,42 @@
             <p>Effective Student committed to learning, developing skills in Computer Engineering and team contribution. Self-directed and energetic with superior performance in both autonomous or collaborative environments working independently and collaborating with others on group projects, showcasing exceptional teamwork and collaboration alongside advanced MS Office skills. Excelled at elevating event experiences through meticulous planning and effective communication, significantly enhancing operational efficiency. Demonstrates a positive attitude and leadership qualities, committed to delivering outstanding results.</p>
         </section>
 
-        <!-- Professional Links -->
         <section class="section fade-in">
             <h2>Professional Links</h2>
             <div class="links-grid">
                 <a href="https://facebook.com/crltjd" class="link-item" target="_blank">
-                    <div class="link-title">Facebook Profile</div>
+                    <div class="link-title"><i class="fab fa-facebook"></i> Facebook Profile</div>
                     <div>Professional networking and updates</div>
                 </a>
-                <a href="https://github.com/crltjd07" class="link-item" target="_blank">
-                    <div class="link-title">GitHub Repository</div>
-                    <div>Software & Web Development Projects</div>
-                </a>
                 <a href="https://linkedin.com/in/carlfrancisencallado/" class="link-item" target="_blank">
-                    <div class="link-title">LinkedIn</div>
+                    <div class="link-title"><i class="fab fa-linkedin"></i> LinkedIn</div>
                     <div>Professional network and career</div>
                 </a>
+                <a href="https://github.com/crltjd07" class="link-item" target="_blank">
+                    <div class="link-title"><i class="fab fa-github"></i> GitHub Repository</div>
+                    <div>Software & Web Development Projects</div>
+                </a>
                 <a href="https://crltjd07.github.io/" class="link-item" target="_blank">
-                    <div class="link-title">GitHub Pages</div>
+                    <div class="link-title"><i class="fab fa-github"></i> GitHub Pages</div>
                     <div>Live Web Projects Portfolio</div>
                 </a>
+                <a href="https://youtube.com/carlfrancisencallado" class="link-item" target="_blank">
+                    <div class="link-title"><i class="fab fa-youtube"></i> YouTube Channel</div>
+                    <div>Video Projects</div>
+                </a>
+                <a href="https://instagram.com/crltjd.07" class="link-item" target="_blank">
+                    <div class="link-title"><i class="fab fa-instagram"></i> Instagram</div>
+                    <div>Personal highlights</div>
+                </a>
+                <a href="https://x.com/crltjd07" class="link-item" target="_blank">
+                    <div class="link-title"><i class="fab fa-x-twitter"></i> X (Twitter)</div>
+                    <div>Tech thoughts and updates</div>
+                </a>
             </div>
-        </section>
+        </section>      
 
-        <!-- Skills -->
-        <section class="section fade-in">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-item">Attention to Detail</div>
-                <div class="skill-item">Computer Skills</div>
-                <div class="skill-item">Data Entry</div>
-                <div class="skill-item">Documentation & Reporting</div>
-                <div class="skill-item">Leadership Qualities</div>
-                <div class="skill-item">MS Office</div>
-                <div class="skill-item">Positive Attitude</div>
-                <div class="skill-item">Recordkeeping</div>
-                <div class="skill-item">Team Collaboration</div>
-                <div class="skill-item">Teamwork</div>
-            </div>
-        </section>
-
-        <!-- Education -->
-        <section class="section fade-in">
+        <!-- Education and Certifications in inline sections -->
+        <div class="section fade-in">
             <h2>Education</h2>
             
             <div class="education-item">
@@ -477,78 +725,224 @@
                     </ul>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Certifications -->
-        <section class="section fade-in">
+        <div class="section fade-in">
             <h2>Certifications</h2>
+        </div>
+
+        <div class="section fade-in">
+            <h2>Awards/Recognitions/Volunteer Work</h2>
             
             <div class="cert-item">
-                <h3>Certificate of Participation - Resilience Hour: Disaster Response</h3>
-                <div class="organization">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
-                <div class="date">July 21, 2022</div>
-                <p>Participated in a tech-informed disaster response webinar highlighting digital coordination tools, risk communication systems, and resilience strategies aligned with National Disaster Resilience Month (NDRM).</p>
+                <h3>Student Membership – Institute of Computer Engineers of the Philippines (ICpEP.SE)</h3>
+                <div class="organization">Institute of Computer Engineers of the Philippines (ICpEP.SE)</div>
+                <div class="date">November 2023</div>
+                <p>Recognized as a certified student member (ID: R4A-SE-2023N-1185) for the 2023–2024 academic year, with active engagement in emerging tech initiatives, engineering workshops, and industry networking. Entitled to privileges supporting career development in computer engineering, including access to technical resources, competitions, and professional mentorship programs.</p>
             </div>
 
             <div class="cert-item">
-                <h3>Certificate of Participation - Microfinance Resiliency</h3>
+                <h3>Proponent – Handog ng Mag-aaral sa Kapwa Mag-aaral: A Community Outreach Program</h3>
+                <div class="organization">Grade 12 STEM Students, MSEMSAT Batch ‘23</div>
+                <div class="date">January 22, 2023</div>
+                <p>Co-led a community outreach initiative focused on engaging children through recreational and educational activities, promoting early learning, social interaction, and youth involvement in community service.</p>
+            </div>
+
+            <div class="cert-item">
+                <h3>Participant – 2022 International Essay Contest for Young People</h3>
+                <div class="organization">The Goi Peace Foundation</div>
+                <div class="date">October 31, 2022</div>
+                <p>Wrote and submitted a reflective essay centered on the theme “My Values,” expressing personal principles and their role in promoting peace, mutual understanding, and social responsibility on a global scale.</p>
+            </div>
+
+            <div class="cert-item">
+                <h3>Participant – Resilience Hour: A Webinar on Disaster Rehabilitation and Recovery</h3>
+                <div class="organization">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
+                <div class="date">July 28, 2022</div>
+                <p>Attended a tech-aligned webinar discussing digital systems for post-disaster recovery, risk management infrastructure, and resilience-building solutions in line with National Disaster Resilience Month (NDRM).</p>
+            </div>
+
+            <div class="cert-item">
+                <h3>Participant – Microfinance Resiliency: The Era of Pandemic and Digital Transformation</h3>
                 <div class="organization">Polytechnic University of the Philippines (PUP)</div>
                 <div class="date">July 23, 2022</div>
                 <p>Explored the role of digital innovation in sustaining microfinance systems during global disruptions. Gained insights into fintech adaptation, remote financial services, and inclusive economic technologies.</p>
             </div>
 
             <div class="cert-item">
-                <h3>Certificate of Participation - Disaster Rehabilitation and Recovery</h3>
+                <h3>Participant – Resilience Hour: A Webinar on Disaster Response</h3>
                 <div class="organization">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
-                <div class="date">July 28, 2022</div>
-                <p>Attended a tech-aligned webinar discussing digital systems for post-disaster recovery, risk management infrastructure, and resilience-building solutions.</p>
+                <div class="date">July 21, 2022</div>
+                <p>Participated in a tech-informed disaster response webinar highlighting digital coordination tools, risk communication systems, and resilience strategies aligned with National Disaster Resilience Month (NDRM).</p>
             </div>
+        </div>
 
-            <div class="cert-item">
-                <h3>Certificate of Student Membership</h3>
-                <div class="organization">Institute of Computer Engineers of the Philippines (ICpEP.SE)</div>
-                <div class="date">November 2023</div>
-                <p>Recognized as a certified student member (ID: R4A-SE-2023N-1185) for the 2023–2024 academic year, with active engagement in emerging tech initiatives, engineering workshops, and industry networking.</p>
+        <!-- Achievements and Projects Gallery -->
+        <section class="section fade-in">
+            <h2>Featured Projects & Milestones</h2>
+            <div class="achievement-gallery">
+                <div class="achievement-item">
+                    <div class="achievement-img"><img src="profile.png" alt=""></div>
+                    <div class="achievement-info">
+                        <div class="achievement-title">WattWise</div>
+                        <div class="achievement-desc">WattWise Energy Solutions was designed with a simple mission: to help consumers and electric utility companies in the Philippines manage, understand, and optimize electricity usage.</div>
+                    </div>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-img"><img src="profile.png" alt="TrackCritic"></div>
+                    <div class="achievement-info">
+                        <div class="achievement-title">TrackCritic</div>
+                        <div class="achievement-desc">Your one-stop destination for tracking and reviewing your favorite artists and music. The ultimate foreign music and world charts tracking platform.</div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Languages -->
         <section class="section fade-in">
-            <h2>Languages</h2>
-            <div class="language-item">
-                <span><strong>English</strong></span>
-                <span class="proficiency">Advanced (C1)</span>
-            </div>
-            <div class="language-item">
-                <span><strong>Filipino</strong></span>
-                <span class="proficiency">Native Speaker</span>
+            <!-- Soft Skills -->
+            <section class="inline-section" style="padding: 2rem;">
+                <h2>Soft Skills</h2>
+                <div>
+                    <div class="skill-item">Attention to Detail</div>
+                    <div class="skill-item">Positive Attitude</div>
+                    <div class="skill-item">Leadership Qualities</div>
+                    <div class="skill-item">Team Collaboration</div>
+                    <div class="skill-item">Teamwork</div>
+                    <div class="skill-item">Adaptability</div>
+                    <div class="skill-item">Problem Solving</div>
+                    <div class="skill-item">Time Management</div>
+                    <div class="skill-item">Critical Thinking</div>
+                    <div class="skill-item">Communication Skills</div>
+                    <div class="skill-item">Work Ethic</div>
+                </div>
+            </section>
+
+            <!-- Technical Skills -->
+            <section class="inline-section" style="padding: 2rem;">
+                <h2>Technical Skills</h2>
+                <div>
+                    <div class="skill-item">Computer Literacy</div>
+                    <div class="skill-item">Data Entry</div>
+                    <div class="skill-item">Recordkeeping</div>
+                    <div class="skill-item">Documentation & Reporting</div>
+                    <div class="skill-item">Web Development (HTML, CSS, JavaScript)</div>
+                    <div class="skill-item">Java Programming</div>
+                    <div class="skill-item">C++ Programming</div>
+                    <div class="skill-item">Object-Oriented Programming (OOP)</div>
+                    <div class="skill-item">MySQL Database Management</div>
+                </div>
+            </section>
+
+            <!-- Tools & Platforms -->
+            <section class="inline-section" style="padding: 2rem;">
+                <h2>Tools & Platforms</h2>
+                <div>
+                    <div class="skill-item">MS Office (Word, Excel, PowerPoint)</div>
+                    <div class="skill-item">Canva</div>
+                    <div class="skill-item">Git</div>
+                    <div class="skill-item">Eclipse IDE</div>
+                    <div class="skill-item">Visual Studio</div>
+                </div>
+            </section>
+
+            <!-- Languages -->
+            <section class="inline-section" style="padding: 2rem;">
+                <h2>Languages</h2>
+                <div>
+                    <div class="language-item">
+                        <span><strong>English</strong></span>
+                        <span class="proficiency">Advanced (C1)</span>
+                    </div>
+                    <div class="language-item">
+                        <span><strong>Filipino</strong></span>
+                        <span class="proficiency">Native Speaker</span>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Personal Life Album -->
+        <section class="section fade-in">
+            <h2>Personal Life Album</h2>
+            <p>A glimpse into my personal journey, hobbies, and memorable moments.</p>
+            
+            <div class="pinterest-gallery">
+                <!-- Diary Entry -->
+                <div class="diary-entry">
+                    <div class="diary-date">July 15, 2023</div>
+                    <div class="diary-content">
+                        Today was an exciting day! I completed my first major project in Computer Engineering. The feeling of seeing everything work after hours of debugging was incredible. Celebrated with my classmates at our favorite café near campus.
+                    </div>
+                </div>
+                
+                <!-- Photo Item 1 -->
+                <div class="gallery-item">
+                    <div class="gallery-img medium">
+                        📸
+                    </div>
+                    <div class="gallery-caption">Graduation day with my family</div>
+                </div>
+                
+                <!-- Photo Item 2 -->
+                <div class="gallery-item">
+                    <div class="gallery-img small">
+                        🏫
+                    </div>
+                    <div class="gallery-caption">First day at university</div>
+                </div>
+                
+                <!-- Diary Entry -->
+                <div class="diary-entry">
+                    <div class="diary-date">May 2, 2023</div>
+                    <div class="diary-content">
+                        Joined a hackathon for the first time. Our team didn't win, but the experience was invaluable. Learned so much about teamwork under pressure and quick problem-solving. Can't wait for the next one!
+                    </div>
+                </div>
+                
+                <!-- Photo Item 3 -->
+                <div class="gallery-item">
+                    <div class="gallery-img large">
+                        🌴
+                    </div>
+                    <div class="gallery-caption">Beach trip with friends last summer</div>
+                </div>
+                
+                <!-- Photo Item 4 -->
+                <div class="gallery-item">
+                    <div class="gallery-img small">
+                        🎓
+                    </div>
+                    <div class="gallery-caption">Receiving my high school honors</div>
+                </div>
+                
+                <!-- Photo Item 5 -->
+                <div class="gallery-item">
+                    <div class="gallery-img medium">
+                        💻
+                    </div>
+                    <div class="gallery-caption">Working on my latest coding project</div>
+                </div>
+                
+                <!-- Photo Item 6 -->
+                <div class="gallery-item">
+                    <div class="gallery-img xlarge">
+                        🎉
+                    </div>
+                    <div class="gallery-caption">Birthday celebration with my team</div>
+                </div>
+                
+                <!-- Diary Entry -->
+                <div class="diary-entry">
+                    <div class="diary-date">January 10, 2023</div>
+                    <div class="diary-content">
+                        Started learning a new programming language today. The syntax is challenging but interesting. Set a goal to build a small project by the end of the month to practice what I'm learning.
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 
     <script>
-        // Add floating particles animation
-        function createParticles() {
-            const bgAnimation = document.querySelector('.bg-animation');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random positioning
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                
-                bgAnimation.appendChild(particle);
-            }
-        }
-
-        // Initialize particles when page loads
-        window.addEventListener('load', createParticles);
-
         // Smooth scroll animation for sections
         const observerOptions = {
             threshold: 0.1,
