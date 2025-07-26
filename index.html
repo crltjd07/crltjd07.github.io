@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carl Francis Encallado - Computer Engineering Student</title>
+    <title>Carl Francis Encallado - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         * {
@@ -17,104 +17,205 @@
             line-height: 1.6;
             color: #e0e6ed;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0d1a 30%, #16102b 70%, #000000 100%);
-            min-height: 100vh;
             overflow-x: hidden;
             user-select: none;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
+        .dashboard-container {
+            display: flex;
+            height: 100vh;
             position: relative;
         }
 
-        /* Header Section */
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.025);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: slideDown 1s ease-out;
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(218, 112, 214, 0.3);
+            padding: 0;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
-        .profile-section {
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(218, 112, 214, 0.2);
+            text-align: center;
+            background: rgba(218, 112, 214, 0.1);
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            padding: 1rem 0.5rem;
+        }
+
+        .profile-mini {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .profile-pic-container {
-            position: relative;
-        }
-
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid #da70d6;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 0 20px rgba(218, 112, 214, 0.5);
+            gap: 1rem;
             transition: all 0.3s ease;
-            cursor: pointer;
         }
 
-        .profile-pic:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(218, 112, 214, 0.8);
+        .sidebar.collapsed .profile-mini {
+            justify-content: center;
         }
 
-        .profile-placeholder {
-            width: 100%;
-            height: 100%;
+        .profile-pic-mini {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #da70d6;
             background: linear-gradient(135deg, rgba(218, 112, 214, 0.2), rgba(255, 105, 180, 0.2));
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: #da70d6;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .profile-pic-mini img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-info-mini {
             transition: all 0.3s ease;
         }
 
-        .profile-placeholder:hover {
-            background: linear-gradient(135deg, rgba(218, 112, 214, 0.3), rgba(255, 105, 180, 0.3));
+        .sidebar.collapsed .profile-info-mini {
+            display: none;
         }
 
-        .profile-info {
-            text-align: left;
-            flex: 1;
-            min-width: 280px;
+        .profile-info-mini h3 {
+            font-size: 1rem;
+            color: #da70d6;
+            margin-bottom: 0.2rem;
         }
 
-        .profile-info h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #da70d6, #ff69b4, #9932cc, #ba55d3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        .profile-info .subtitle {
-            font-size: 1.3rem;
+        .profile-info-mini .role {
+            font-size: 0.8rem;
             color: #ff69b4;
-            margin-bottom: 0;
         }
 
-        @keyframes slideDown {
+        .nav-menu {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: #e0e6ed;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .sidebar.collapsed .nav-item {
+            padding: 1rem;
+            justify-content: center;
+        }
+
+        .nav-item:hover {
+            background: rgba(218, 112, 214, 0.1);
+            border-left-color: #da70d6;
+            color: #da70d6;
+        }
+
+        .nav-item.active {
+            background: rgba(218, 112, 214, 0.2);
+            border-left-color: #da70d6;
+            color: #da70d6;
+        }
+
+        .nav-item i {
+            width: 20px;
+            margin-right: 1rem;
+            font-size: 1.1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed .nav-item i {
+            margin-right: 0;
+        }
+
+        .nav-item span {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed .nav-item span {
+            display: none;
+        }
+
+        .toggle-btn {
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            transform: translateY(-50%);
+            background: rgba(218, 112, 214, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(218, 112, 214, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+            background: transparent;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .main-content.expanded {
+            margin-left: 70px;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -122,42 +223,117 @@
             }
         }
 
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+        /* Header */
+        .page-header {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.025);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
             background: linear-gradient(45deg, #da70d6, #ff69b4, #9932cc, #ba55d3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: glow 2s ease-in-out infinite alternate;
+            margin-bottom: 0.5rem;
         }
 
-        @keyframes glow {
-            from { filter: brightness(1); }
-            to { filter: brightness(1.2); }
+        .page-header .subtitle {
+            font-size: 1.2rem;
+            color: #ff69b4;
+            opacity: 0.9;
         }
 
-        .header .subtitle {
-            font-size: 1.5rem;
+        /* Content Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.025);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(218, 112, 214, 0.15);
+        }
+
+        .card h3 {
+            color: #da70d6;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* About Profile Card */
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-pic-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #da70d6;
+            background: linear-gradient(135deg, rgba(218, 112, 214, 0.2), rgba(255, 105, 180, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #da70d6;
+            font-size: 3rem;
+            box-shadow: 0 0 20px rgba(218, 112, 214, 0.5);
+            flex-shrink: 0;
+        }
+
+        .profile-pic-large img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-details h2 {
+            font-size: 2rem;
+            color: #da70d6;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-details .role {
+            font-size: 1.1rem;
             color: #ff69b4;
             margin-bottom: 1rem;
         }
 
-        .contact-info {
-            display: flex;
-            justify-content: left;
-            flex-wrap: wrap;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
 
         .contact-item {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1rem;
+            padding: 0.8rem;
             background: rgba(218, 112, 214, 0.1);
-            border-radius: 25px;
+            border-radius: 10px;
             border: 1px solid rgba(218, 112, 214, 0.3);
             transition: all 0.3s ease;
             font-size: 0.9rem;
@@ -166,64 +342,17 @@
         .contact-item:hover {
             background: rgba(218, 112, 214, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(218, 112, 214, 0.3);
         }
 
-        /* Section Styling */
-        .section {
-            margin-bottom: 2.5rem;
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            animation: slideUp 0.8s ease-out;
-            transition: all 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(218, 112, 214, 0.15);
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #da70d6;
-            border-bottom: 2px solid #da70d6;
-            padding-bottom: 0.5rem;
-            position: relative;
-        }
-
-        .section h2::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #ff69b4, #9932cc);
-            animation: underlineExpand 1.5s ease-out 0.5s forwards;
-        }
-
-        @keyframes underlineExpand {
-            to { width: 100%; }
+        .contact-item a {
+            color: #e0e6ed;
+            text-decoration: none;
         }
 
         /* Skills Grid */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
         }
@@ -234,27 +363,9 @@
             border-radius: 10px;
             border: 1px solid rgba(64, 224, 208, 0.3);
             text-align: center;
+            align-content: center;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            margin: 0.3rem;
             font-size: 0.9rem;
-        }
-
-        .skill-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: all 0.5s;
-        }
-
-        .skill-item:hover::before {
-            left: 100%;
         }
 
         .skill-item:hover {
@@ -263,32 +374,28 @@
             box-shadow: 0 5px 20px rgba(64, 224, 208, 0.3);
         }
 
-        /* Education Items */
-        .education-item, .cert-item {
-            margin-bottom: 2rem;
+        /* Education & Certifications */
+        .timeline-item {
+            margin-bottom: 1.5rem;
             padding: 1.5rem;
             background: rgba(255, 105, 180, 0.1);
             border-radius: 12px;
             border-left: 4px solid #da70d6;
             transition: all 0.3s ease;
-            display: block;
-            width: 100%;
         }
 
-        .education-item:hover, .cert-item:hover {
+        .timeline-item:hover {
             background: rgba(255, 105, 180, 0.15);
             transform: translateX(10px);
-            box-shadow: 0 5px 25px rgba(255, 105, 180, 0.2);
         }
 
-        .education-item h3, .cert-item h3 {
+        .timeline-item h4 {
             color: #ff69b4;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
-            line-height: 1.3;
         }
 
-        .institution, .organization {
+        .institution {
             color: #da70d6;
             font-weight: 600;
             margin-bottom: 0.5rem;
@@ -320,10 +427,10 @@
             color: #da70d6;
         }
 
-        /* Links Section */
+        /* Links Grid */
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-top: 1rem;
         }
@@ -338,7 +445,6 @@
             text-decoration: none;
             color: inherit;
             display: block;
-            width: 100%;
         }
 
         .link-item:hover {
@@ -355,6 +461,61 @@
             color: #ff69b4;
         }
 
+        /* Projects Gallery */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .project-item {
+            background: rgba(218, 112, 214, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(218, 112, 214, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(218, 112, 214, 0.3);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(218, 112, 214, 0.2), rgba(255, 105, 180, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #da70d6;
+            font-size: 3rem;
+        }
+
+        .project-img iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            color: #ff69b4;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            color: #e0e6ed;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
         /* Languages */
         .language-item {
             display: flex;
@@ -366,7 +527,6 @@
             border-radius: 10px;
             border: 1px solid rgba(255, 105, 180, 0.3);
             transition: all 0.3s ease;
-            width: 100%;
         }
 
         .language-item:hover {
@@ -379,681 +539,480 @@
             font-weight: 600;
         }
 
-        /* Achievement Gallery */
-        .achievement-gallery {
+        /* Personal Album */
+        .album-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
             margin-top: 1rem;
         }
 
-        .achievement-item {
-            background: rgba(218, 112, 214, 0.1);
-            border-radius: 15px;
-            border: 1px solid rgba(218, 112, 214, 0.3);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-            display: block;
-        }
-
-        .achievement-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 30px rgba(218, 112, 214, 0.3);
-        }
-
-        .achievement-img {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, rgba(218, 112, 214, 0.2), rgba(255, 105, 180, 0.2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #da70d6;
-            font-size: 3rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .achievement-img iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .achievement-img:hover {
-            background: linear-gradient(135deg, rgba(218, 112, 214, 0.3), rgba(255, 105, 180, 0.3));
-        }
-
-        .achievement-info {
-            padding: 1.5rem;
-        }
-
-        .achievement-title {
-            color: #ff69b4;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .achievement-desc {
-            color: #e0e6ed;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* Personal Life Album - Pinterest Style */
-        .pinterest-gallery {
-            columns: 2;
-            column-gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 1rem;
+        .album-item {
             background: rgba(255, 105, 180, 0.1);
             border-radius: 15px;
             border: 1px solid rgba(255, 105, 180, 0.3);
             overflow: hidden;
             transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-block;
-            width: 100%;
         }
 
-        .gallery-item:hover {
+        .album-item:hover {
             transform: scale(1.02);
             box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
         }
 
-        .gallery-img {
+        .album-img {
             width: 100%;
+            height: 150px;
             background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(186, 85, 211, 0.2));
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ff69b4;
             font-size: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
         }
 
-        .gallery-img.small { height: 120px; }
-        .gallery-img.medium { height: 160px; }
-        .gallery-img.large { height: 220px; }
-        .gallery-img.xlarge { height: 280px; }
-
-        .gallery-img:hover {
-            background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(186, 85, 211, 0.3));
-        }
-
-        .gallery-caption {
+        .album-caption {
             padding: 1rem;
             font-size: 0.9rem;
             color: #e0e6ed;
             text-align: center;
         }
 
-        .add-photo-btn {
-            background: rgba(218, 112, 214, 0.2);
-            border: 2px dashed rgba(218, 112, 214, 0.5);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            color: #da70d6;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
-            break-inside: avoid;
-            display: inline-block;
-            width: 100%;
-        }
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
 
-        .add-photo-btn:hover {
-            background: rgba(218, 112, 214, 0.3);
-            border-color: rgba(218, 112, 214, 0.8);
-            transform: scale(1.02);
-        }
+            .sidebar .profile-info-mini,
+            .sidebar .nav-item span {
+                display: none;
+            }
 
-        .add-photo-btn span {
-            font-size: 2.5rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
+            .sidebar .nav-item {
+                padding: 1rem;
+                justify-content: center;
+            }
 
-        /* Diary Entry */
-        .diary-entry {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: rgba(186, 85, 211, 0.1);
-            border-radius: 12px;
-            border-left: 4px solid #9932cc;
-            transition: all 0.3s ease;
-            display: inline-block;
-            width: 100%;
-            break-inside: avoid;
-        }
+            .sidebar .nav-item i {
+                margin-right: 0;
+            }
 
-        .diary-entry:hover {
-            background: rgba(186, 85, 211, 0.15);
-            transform: translateX(5px);
-            box-shadow: 0 5px 25px rgba(186, 85, 211, 0.2);
-        }
-
-        .diary-date {
-            color: #ba55d3;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .diary-content {
-            color: #e0e6ed;
-            line-height: 1.6;
-            font-size: 0.9rem;
-        }
-
-        /* Inline sections */
-        .inline-section {
-            display: block;
-            width: 100%;
-            vertical-align: top;
-            margin-bottom: 2rem;
-        }
-
-        /* Enhanced Mobile Responsive Styles */
-        @media (max-width: 1024px) {
-            .container {
-                width: 95%;
+            .main-content {
+                margin-left: 70px;
                 padding: 1rem;
             }
-            
-            .links-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
-            
-            .achievement-gallery {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
-        }
 
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-                padding: 0.5rem;
+            .toggle-btn {
+                display: none;
             }
 
-            .header {
-                padding: 1.5rem;
-                margin-bottom: 2rem;
-            }
-            
-            .profile-section {
+            .profile-card {
                 flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .profile-pic {
-                width: 120px;
-                height: 120px;
-            }
-
-            .profile-info {
                 text-align: center;
             }
 
-            .profile-info h1 {
+            .profile-pic-large {
+                width: 120px;
+                height: 120px;
                 font-size: 2rem;
             }
 
-            .profile-info .subtitle {
-                font-size: 1.1rem;
+            .page-header h1 {
+                font-size: 2rem;
             }
 
-            .contact-info {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.8rem;
-            }
-            
-            .contact-item {
-                font-size: 0.85rem;
-                padding: 0.4rem 0.8rem;
+            .links-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
             }
 
-            .section {
-                padding: 1.2rem;
-                margin-bottom: 2rem;
-            }
-
-            .section h2 {
-                font-size: 1.5rem;
-            }
-            
             .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                gap: 0.8rem;
-            }
-            
-            .skill-item {
-                padding: 0.8rem;
-                font-size: 0.85rem;
-                margin: 0.2rem;
-            }
-
-            .links-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .achievement-gallery {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .pinterest-gallery {
-                columns: 1;
-            }
-            
-            .education-item, .cert-item {
-                padding: 1.2rem;
-            }
-            
-            .education-item h3, .cert-item h3 {
-                font-size: 1.1rem;
-            }
-            
-            .inline-section {
-                padding: 1rem;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                width: 98%;
-                padding: 0.3rem;
-            }
-            
-            .header {
-                padding: 1rem;
-                border-radius: 15px;
-            }
-            
-            .profile-pic {
-                width: 100px;
-                height: 100px;
+            .main-content {
+                padding: 0.5rem;
             }
 
-            .profile-info {
-                text-align: center;
-            }
-
-            .profile-info h1 {
-                font-size: 1.6rem;
-            }
-
-            .profile-info .subtitle {
-                font-size: 1rem;
-            }
-            
-            .section {
-                padding: 1rem;
-                border-radius: 12px;
-            }
-
-            .section h2 {
-                font-size: 1.3rem;
-            }
-            
-            .contact-item {
-                font-size: 0.8rem;
-                padding: 0.3rem 0.6rem;
-            }
-            
-            .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                gap: 0.5rem;
-            }
-            
-            .skill-item {
-                padding: 0.6rem;
-                font-size: 0.8rem;
-            }
-            
-            .achievement-img {
-                height: 150px;
-                font-size: 2rem;
-            }
-            
-            .achievement-info {
+            .card {
                 padding: 1rem;
             }
-            
-            .gallery-img.small { height: 100px; }
-            .gallery-img.medium { height: 130px; }
-            .gallery-img.large { height: 180px; }
-            .gallery-img.xlarge { height: 220px; }
-            
-            .gallery-img {
+
+            .page-header {
+                padding: 1rem;
+            }
+
+            .page-header h1 {
                 font-size: 1.5rem;
             }
-            
-            .gallery-caption {
-                padding: 0.8rem;
-                font-size: 0.85rem;
-            }
-            
-            .diary-entry {
-                padding: 1rem;
-            }
-            
-            .education-item, .cert-item {
-                padding: 1rem;
-            }
-            
-            .language-item {
-                padding: 0.8rem;
+
+            .contact-grid {
+                grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 360px) {
-            .profile-info {
-                text-align: center;
-            }
-
-            .profile-info h1 {
-                font-size: 1.4rem;
-            }
-            
-            .section h2 {
-                font-size: 1.2rem;
-            }
-            
-            .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-            
-            .skill-item {
-                padding: 0.5rem;
-                font-size: 0.75rem;
-            }
+        /* Scrollbar Styling */
+        .sidebar::-webkit-scrollbar,
+        .main-content::-webkit-scrollbar {
+            width: 5px;
         }
 
-        /* Loading Animation */
-        .fade-in {
-            animation: fadeIn 0.8s ease-out;
+        .sidebar::-webkit-scrollbar-track,
+        .main-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .sidebar::-webkit-scrollbar-thumb,
+        .main-content::-webkit-scrollbar-thumb {
+            background: rgba(218, 112, 214, 0.5);
+            border-radius: 5px;
         }
 
-        a {
-            text-decoration: none;
-        }
-        
-        /* Ensure iframes are responsive */
-        iframe {
-            max-width: 100%;
-            height: auto;
+        .sidebar::-webkit-scrollbar-thumb:hover,
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(218, 112, 214, 0.8);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="profile-section">
-                <div class="profile-pic-container">
-                    <div class="profile-pic">
-                        <div class="profile-placeholder">
-                            <span><img src="profile.png" alt="Carl Francis Tejada Encallado"></span>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <button class="toggle-btn" id="toggleBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <div class="sidebar-header">
+                <div class="profile-mini">
+                    <div class="profile-pic-mini">
+                        <img src="profile.png" alt="Carl Francis Tejada Encallado">
+                    </div>
+                    <div class="profile-info-mini">
+                        <h3>Carl Francis Encallado</h3>
+                        <div class="role">Aspiring Software Engineer</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-menu">
+                <a class="nav-item active" data-section="about">
+                    <i class="fas fa-user"></i>
+                    <span>About</span>
+                </a>
+                <a class="nav-item" data-section="skills">
+                    <i class="fas fa-code"></i>
+                    <span>Skills</span>
+                </a>
+                <a class="nav-item" data-section="education">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Education</span>
+                </a>
+                <a class="nav-item" data-section="certifications">
+                    <i class="fas fa-certificate"></i>
+                    <span>Certifications</span>
+                </a>
+                <a class="nav-item" data-section="projects">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Projects</span>
+                </a>
+                <a class="nav-item" data-section="links">
+                    <i class="fas fa-link"></i>
+                    <span>Links</span>
+                </a>
+                <a class="nav-item" data-section="languages">
+                    <i class="fas fa-language"></i>
+                    <span>Languages</span>
+                </a>
+                <a class="nav-item" data-section="personal">
+                    <i class="fas fa-heart"></i>
+                    <span>Personal</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- About Section -->
+            <div class="content-section active" id="about">
+                <div class="page-header">
+                    <h1>About Me</h1>
+                    <div class="subtitle">Get to know Carl Francis Encallado</div>
+                </div>
+
+                <div class="card">
+                    <div class="profile-card">
+                        <div class="profile-pic-large">
+                            <img src="profile.png" alt="Carl Francis Tejada Encallado">
+                        </div>
+                        <div class="profile-details">
+                            <h2>Carl Francis Encallado</h2>
+                            <div class="role">Computer Engineering Student</div>
+                            <p>Effective Student committed to learning, developing skills in Computer Engineering and team contribution. Self-directed and energetic with superior performance in both autonomous or collaborative environments working independently and collaborating with others on group projects, showcasing exceptional teamwork and collaboration alongside advanced MS Office skills.</p>
+                            
+                            <div class="contact-grid">
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <a href="https://maps.app.goo.gl/N43RAJkuZyXn4Cit7" target="_blank">Mauban, Quezon, Philippines 4330</a>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <a href="tel:+639694449441">+639694449441</a>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <a href="mailto:carlfrancisencallado@gmail.com">carlfrancisencallado@gmail.com</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="profile-info">
-                    <h1>Carl Francis Encallado</h1>
-                    <div class="subtitle">Computer Engineering Student</div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="content-section" id="skills">
+                <div class="page-header">
+                    <h1>Skills & Expertise</h1>
+                    <div class="subtitle">My technical and soft skills</div>
                 </div>
-            </div>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span>📍</span>
-                    <span><a href="https://maps.app.goo.gl/N43RAJkuZyXn4Cit7" target="_blank" style="color: #e0e6ed;">Mauban, Quezon, Philippines 4330</a></span>
-                </div>
-                <div class="contact-item">
-                    <span>📱</span>
-                    <span><a href="tel:+639694449441" style="color: #e0e6ed;">+639694449441</a></span>
-                </div>
-                <div class="contact-item">
-                    <span>✉️</span>
-                    <span><a href="mailto:carlfrancisencallado@gmail.com" style="color: #e0e6ed;">carlfrancisencallado@gmail.com</a></span>
-                </div>
-            </div>
-        </header>
 
-        <!-- About -->
-        <section class="section fade-in">
-            <h2>About Me</h2>
-            <p>Effective Student committed to learning, developing skills in Computer Engineering and team contribution. Self-directed and energetic with superior performance in both autonomous or collaborative environments working independently and collaborating with others on group projects, showcasing exceptional teamwork and collaboration alongside advanced MS Office skills. Excelled at elevating event experiences through meticulous planning and effective communication, significantly enhancing operational efficiency. Demonstrates a positive attitude and leadership qualities, committed to delivering outstanding results.</p>
-        </section>
-
-        <section class="section fade-in">
-            <h2>Professional Links</h2>
-            <div class="links-grid">
-                <a href="https://www.facebook.com/crltjd" class="link-item" target="_blank">
-                    <div class="link-title"><i class="fab fa-facebook"></i> Facebook Profile</div>
-                    <div>Professional networking and updates</div>
-                </a>
-                <a href="https://www.linkedin.com/in/carlfrancisencallado/" class="link-item" target="_blank">
-                    <div class="link-title"><i class="fab fa-linkedin"></i> LinkedIn</div>
-                    <div>Professional network and career</div>
-                </a>
-                <a href="https://github.com/crltjd07" class="link-item" target="_blank">
-                    <div class="link-title"><i class="fab fa-github"></i> GitHub Repository</div>
-                    <div>Software & Web Development Projects</div>
-                </a>
-                <a href="https://crltjd07.github.io/" class="link-item" target="_blank">
-                    <div class="link-title"><i class="fab fa-github"></i> GitHub Pages</div>
-                    <div>Live Web Projects Portfolio</div>
-                </a>
-                <a href="https://youtube.com/@carlfrancisencallado" class="link-item" target="_blank">
-                    <div class="link-title"><i class="fab fa-youtube"></i> YouTube Channel</div>
-                    <div>Video Projects</div>
-                </a>
-                <a href="https://instagram.com/crltjd.07" class="link-item" target="_blank">
-                    <div class="link-title"><i class="fab fa-instagram"></i> Instagram</div>
-                    <div>Personal highlights</div>
-                </a>
-                <a href="https://x.com/crltjd07" class="link-item" target="_blank">
-                    <div class="link-title"><i class="fab fa-x-twitter"></i> X (Twitter)</div>
-                    <div>Tech thoughts and updates</div>
-                </a>
-            </div>
-        </section>      
-
-        <!-- Education and Certifications in inline sections -->
-        <div class="section fade-in">
-            <h2>Education</h2>
-            
-            <div class="education-item">
-                <h3>Bachelor of Science in Computer Engineering</h3>
-                <div class="institution">Southern Luzon State University – Lucban, Quezon, Philippines</div>
-                <div class="date">Expected Graduation: August 2027</div>
-                <div class="achievements">
-                    <ul>
-                        <li>1.50 GWA (First Year)</li>
-                        <li>1.44 GWA (Second Year)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="education-item">
-                <h3>High School Diploma (STEM)</h3>
-                <div class="institution">Manuel S. Enverga Memorial School of Arts and Trades – Mauban, Quezon, Philippines</div>
-                <div class="date">Graduated: June 2021</div>
-                <div class="achievements">
-                    <ul>
-                        <li>With High Honors Awardee (97% GWA)</li>
-                        <li>Outstanding Performance in Arts</li>
-                        <li>Outstanding Performance in Communication Arts</li>
-                        <li>Outstanding Performance in Science</li>
-                        <li>Outstanding Performance in Mathematics</li>
-                        <li>Research Award</li>
-                        <li>SSLG Service Award (G12 Representative)</li>
-                        <li>BKD Service Award (Treasurer)</li>
-                        <li>Philippine Senate Gold Medal Award for Academic Excellence</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="education-item">
-                <h3>Vocational School Completer (Computer Software Servicing)</h3>
-                <div class="institution">Manuel S. Enverga Memorial School of Arts and Trades – Mauban, Quezon, Philippines</div>
-                <div class="date">December 2023</div>
-                <div class="achievements">
-                    <ul>
-                        <li>With High Honors Awardee (97% GWA)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="section fade-in">
-            <h2>Certifications</h2>
-        </div>
-
-        <div class="section fade-in">
-            <h2>Awards/Recognitions/Volunteer Work</h2>
-            
-            <div class="cert-item">
-                <h3><a href="Carl Francis_Encallado_certificate.pdf" target="_blank" style="color: #ff69b4;">Participant – Economic and Financial Learning Program (EFLP)</a></h3>
-                <div class="organization">Bangko Sentral ng Pilipinas (BSP)</div>
-                <div class="date">July 24, 2025</div>
-                <p>Attended a financial literacy program titled "Enabling Employees to Make Better Choices Through Economic and Financial Understanding," focused on empowering the workforce with informed decision-making skills in personal finance and economics.</p>
-            </div>
-
-            <div class="cert-item">
-                <h3><a href="Southern Luzon State University - Main Campus_ENCALLADO_CARL FRANCIS.pdf" target="_blank" style="color: #ff69b4;">Student Membership – Institute of Computer Engineers of the Philippines (ICpEP.SE)</a></h3>
-                <div class="organization">Institute of Computer Engineers of the Philippines (ICpEP.SE)</div>
-                <div class="date">November 2023</div>
-                <p>Recognized as a certified student member (ID: R4A-SE-2023N-1185) for the 2023–2024 academic year, with active engagement in emerging tech initiatives, engineering workshops, and industry networking. Entitled to privileges supporting career development in computer engineering, including access to technical resources, competitions, and professional mentorship programs.</p>
-            </div>
-
-            <div class="cert-item">
-                <h3>Proponent – Handog ng Mag-aaral sa Kapwa Mag-aaral: A Community Outreach Program</h3>
-                <div class="organization">Grade 12 STEM Students, MSEMSAT Batch '23</div>
-                <div class="date">January 22, 2023</div>
-                <p>Co-led a community outreach initiative focused on engaging children through recreational and educational activities, promoting early learning, social interaction, and youth involvement in community service.</p>
-            </div>
-
-            <div class="cert-item">
-                <h3>Participant – 2022 International Essay Contest for Young People</h3>
-                <div class="organization">The Goi Peace Foundation</div>
-                <div class="date">October 31, 2022</div>
-                <p>Wrote and submitted a reflective essay centered on the theme "My Values," expressing personal principles and their role in promoting peace, mutual understanding, and social responsibility on a global scale.</p>
-            </div>
-
-            <div class="cert-item">
-                <h3><a href="W4NDRM-A75 ENCALLADO, CARL FRANCIS T.pdf" target="_blank" style="color: #ff69b4;">Participant – Resilience Hour: A Webinar on Disaster Rehabilitation and Recovery</a></h3>
-                <div class="organization">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
-                <div class="date">July 28, 2022</div>
-                <p>Attended a tech-aligned webinar discussing digital systems for post-disaster recovery, risk management infrastructure, and resilience-building solutions in line with National Disaster Resilience Month (NDRM).</p>
-            </div>
-
-            <div class="cert-item">
-                <h3><a href="CARL FRANCIS T. ENCALLADO - MFR-0145.pdf" target="_blank" style="color: #ff69b4;">Participant – Microfinance Resiliency: The Era of Pandemic and Digital Transformation</a></h3>
-                <div class="organization">Polytechnic University of the Philippines (PUP)</div>
-                <div class="date">July 23, 2022</div>
-                <p>Explored the role of digital innovation in sustaining microfinance systems during global disruptions. Gained insights into fintech adaptation, remote financial services, and inclusive economic technologies.</p>
-            </div>
-
-            <div class="cert-item">
-                <h3><a href="W3NDRM-A416 ENCALLADO, CARL FRANCIS T.pdf" target="_blank" style="color: #ff69b4;">Participant – Resilience Hour: A Webinar on Disaster Response</a></h3>
-                <div class="organization">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
-                <div class="date">July 21, 2022</div>
-                <p>Participated in a tech-informed disaster response webinar highlighting digital coordination tools, risk communication systems, and resilience strategies aligned with National Disaster Resilience Month (NDRM).</p>
-            </div>
-        </div>
-
-        <!-- Achievements and Projects Gallery -->
-        <section class="section fade-in">
-            <h2>Featured Projects & Milestones</h2>
-            <div class="achievement-gallery">
-                <div class="achievement-item">
-                    <div class="achievement-img">
-                        <iframe height="200" src="https://www.youtube-nocookie.com/embed/eVD7pQls3vk?si=3Wfscz35FkXTi775&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="achievement-info">
-                        <div class="achievement-title">WattWise</div>
-                        <div class="achievement-desc">WattWise Energy Solutions was designed with a simple mission: to help consumers and electric utility companies in the Philippines manage, understand, and optimize electricity usage.</div>
+                <div class="card">
+                    <h3><i class="fas fa-heart"></i> Soft Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">Attention to Detail</div>
+                        <div class="skill-item">Positive Attitude</div>
+                        <div class="skill-item">Leadership Qualities</div>
+                        <div class="skill-item">Team Collaboration</div>
+                        <div class="skill-item">Teamwork</div>
+                        <div class="skill-item">Adaptability</div>
+                        <div class="skill-item">Problem Solving</div>
+                        <div class="skill-item">Time Management</div>
+                        <div class="skill-item">Critical Thinking</div>
+                        <div class="skill-item">Communication Skills</div>
+                        <div class="skill-item">Work Ethic</div>
                     </div>
                 </div>
-                <div class="achievement-item">
-                    <div class="achievement-img">
-                        <iframe height="200" src="https://www.youtube-nocookie.com/embed/6VjOXpllXOQ?si=NrvmqVK-rAqXNroO&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                <div class="card">
+                    <h3><i class="fas fa-code"></i> Technical Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">Computer Literacy</div>
+                        <div class="skill-item">Data Entry</div>
+                        <div class="skill-item">Recordkeeping</div>
+                        <div class="skill-item">Documentation & Reporting</div>
+                        <div class="skill-item">Web Development (HTML, CSS, JavaScript)</div>
+                        <div class="skill-item">Java Programming</div>
+                        <div class="skill-item">C++ Programming</div>
+                        <div class="skill-item">Object-Oriented Programming (OOP)</div>
+                        <div class="skill-item">MySQL Database Management</div>
                     </div>
-                    <div class="achievement-info">
-                        <div class="achievement-title">TrackCritic</div>
-                        <div class="achievement-desc">Your one-stop destination for tracking and reviewing your favorite artists and music. The ultimate foreign music and world charts tracking platform.</div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">MS Office (Word, Excel, PowerPoint)</div>
+                        <div class="skill-item">Canva</div>
+                        <div class="skill-item">Git</div>
+                        <div class="skill-item">Eclipse IDE</div>
+                        <div class="skill-item">Visual Studio</div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section class="section fade-in">
-            <!-- Soft Skills -->
-            <section class="inline-section" style="padding: 2rem;">
-                <h2>Soft Skills</h2>
-                <div>
-                    <div class="skill-item">Attention to Detail</div>
-                    <div class="skill-item">Positive Attitude</div>
-                    <div class="skill-item">Leadership Qualities</div>
-                    <div class="skill-item">Team Collaboration</div>
-                    <div class="skill-item">Teamwork</div>
-                    <div class="skill-item">Adaptability</div>
-                    <div class="skill-item">Problem Solving</div>
-                    <div class="skill-item">Time Management</div>
-                    <div class="skill-item">Critical Thinking</div>
-                    <div class="skill-item">Communication Skills</div>
-                    <div class="skill-item">Work Ethic</div>
+            <!-- Education Section -->
+            <div class="content-section" id="education">
+                <div class="page-header">
+                    <h1>Education</h1>
+                    <div class="subtitle">My academic journey</div>
                 </div>
-            </section>
 
-            <!-- Technical Skills -->
-            <section class="inline-section" style="padding: 2rem;">
-                <h2>Technical Skills</h2>
-                <div>
-                    <div class="skill-item">Computer Literacy</div>
-                    <div class="skill-item">Data Entry</div>
-                    <div class="skill-item">Recordkeeping</div>
-                    <div class="skill-item">Documentation & Reporting</div>
-                    <div class="skill-item">Web Development (HTML, CSS, JavaScript)</div>
-                    <div class="skill-item">Java Programming</div>
-                    <div class="skill-item">C++ Programming</div>
-                    <div class="skill-item">Object-Oriented Programming (OOP)</div>
-                    <div class="skill-item">MySQL Database Management</div>
+                <div class="card">
+                    <div class="timeline-item">
+                        <h4>Bachelor of Science in Computer Engineering</h4>
+                        <div class="institution">Southern Luzon State University – Lucban, Quezon, Philippines</div>
+                        <div class="date">Expected Graduation: August 2027</div>
+                        <div class="achievements">
+                            <ul>
+                                <li>1.50 GWA (First Year)</li>
+                                <li>1.44 GWA (Second Year)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>High School Diploma (STEM)</h4>
+                        <div class="institution">Manuel S. Enverga Memorial School of Arts and Trades – Mauban, Quezon, Philippines</div>
+                        <div class="date">Graduated: June 2021</div>
+                        <div class="achievements">
+                            <ul>
+                                <li>With High Honors Awardee (97% GWA)</li>
+                                <li>Outstanding Performance in Arts</li>
+                                <li>Outstanding Performance in Communication Arts</li>
+                                <li>Outstanding Performance in Science</li>
+                                <li>Outstanding Performance in Mathematics</li>
+                                <li>Research Award</li>
+                                <li>SSLG Service Award (G12 Representative)</li>
+                                <li>BKD Service Award (Treasurer)</li>
+                                <li>Philippine Senate Gold Medal Award for Academic Excellence</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Vocational School Completer (Computer Software Servicing)</h4>
+                        <div class="institution">Manuel S. Enverga Memorial School of Arts and Trades – Mauban, Quezon, Philippines</div>
+                        <div class="date">December 2023</div>
+                        <div class="achievements">
+                            <ul>
+                                <li>With High Honors Awardee (97% GWA)</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Tools & Platforms -->
-            <section class="inline-section" style="padding: 2rem;">
-                <h2>Tools & Platforms</h2>
-                <div>
-                    <div class="skill-item">MS Office (Word, Excel, PowerPoint)</div>
-                    <div class="skill-item">Canva</div>
-                    <div class="skill-item">Git</div>
-                    <div class="skill-item">Eclipse IDE</div>
-                    <div class="skill-item">Visual Studio</div>
+            <!-- Certifications Section -->
+            <div class="content-section" id="certifications">
+                <div class="page-header">
+                    <h1>Awards & Certifications</h1>
+                    <div class="subtitle">Recognition and achievements</div>
                 </div>
-            </section>
 
-            <!-- Languages -->
-            <section class="inline-section" style="padding: 2rem;">
-                <h2>Languages</h2>
-                <div>
+                <div class="card">
+                    <div class="timeline-item">
+                        <h4>Participant – Economic and Financial Learning Program (EFLP)</h4>
+                        <div class="institution">Bangko Sentral ng Pilipinas (BSP)</div>
+                        <div class="date">July 24, 2025</div>
+                        <p>Attended a financial literacy program titled "Enabling Employees to Make Better Choices Through Economic and Financial Understanding," focused on empowering the workforce with informed decision-making skills in personal finance and economics.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Student Membership – Institute of Computer Engineers of the Philippines (ICpEP.SE)</h4>
+                        <div class="institution">Institute of Computer Engineers of the Philippines (ICpEP.SE)</div>
+                        <div class="date">November 2023</div>
+                        <p>Recognized as a certified student member (ID: R4A-SE-2023N-1185) for the 2023–2024 academic year, with active engagement in emerging tech initiatives, engineering workshops, and industry networking.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Proponent – Handog ng Mag-aaral sa Kapwa Mag-aaral: A Community Outreach Program</h4>
+                        <div class="institution">Grade 12 STEM Students, MSEMSAT Batch '23</div>
+                        <div class="date">January 22, 2023</div>
+                        <p>Co-led a community outreach initiative focused on engaging children through recreational and educational activities, promoting early learning, social interaction, and youth involvement in community service.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Participant – 2022 International Essay Contest for Young People</h4>
+                        <div class="institution">The Goi Peace Foundation</div>
+                        <div class="date">October 31, 2022</div>
+                        <p>Wrote and submitted a reflective essay centered on the theme "My Values," expressing personal principles and their role in promoting peace, mutual understanding, and social responsibility on a global scale.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Participant – Resilience Hour: A Webinar on Disaster Rehabilitation and Recovery</h4>
+                        <div class="institution">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
+                        <div class="date">July 28, 2022</div>
+                        <p>Attended a tech-aligned webinar discussing digital systems for post-disaster recovery, risk management infrastructure, and resilience-building solutions.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Participant – Microfinance Resiliency: The Era of Pandemic and Digital Transformation</h4>
+                        <div class="institution">Polytechnic University of the Philippines (PUP)</div>
+                        <div class="date">July 23, 2022</div>
+                        <p>Explored the role of digital innovation in sustaining microfinance systems during global disruptions. Gained insights into fintech adaptation, remote financial services, and inclusive economic technologies.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Participant – Resilience Hour: A Webinar on Disaster Response</h4>
+                        <div class="institution">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
+                        <div class="date">July 21, 2022</div>
+                        <p>Participated in a tech-informed disaster response webinar highlighting digital coordination tools, risk communication systems, and resilience strategies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div class="content-section" id="projects">
+                <div class="page-header">
+                    <h1>Featured Projects</h1>
+                    <div class="subtitle">My development projects and milestones</div>
+                </div>
+
+                <div class="card">
+                    <div class="projects-grid">
+                        <div class="project-item">
+                            <div class="project-img">
+                                <iframe height="200" src="https://www.youtube-nocookie.com/embed/eVD7pQls3vk?si=3Wfscz35FkXTi775&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <div class="project-info">
+                                <div class="project-title">WattWise</div>
+                                <div class="project-desc">WattWise Energy Solutions was designed with a simple mission: to help consumers and electric utility companies in the Philippines manage, understand, and optimize electricity usage.</div>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-img">
+                                <iframe height="200" src="https://www.youtube-nocookie.com/embed/6VjOXpllXOQ?si=NrvmqVK-rAqXNroO&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <div class="project-info">
+                                <div class="project-title">TrackCritic</div>
+                                <div class="project-desc">Your one-stop destination for tracking and reviewing your favorite artists and music. The ultimate foreign music and world charts tracking platform.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Links Section -->
+            <div class="content-section" id="links">
+                <div class="page-header">
+                    <h1>Professional Links</h1>
+                    <div class="subtitle">Connect with me on various platforms</div>
+                </div>
+
+                <div class="card">
+                    <div class="links-grid">
+                        <a href="https://www.facebook.com/crltjd" class="link-item" target="_blank">
+                            <div class="link-title"><i class="fab fa-facebook"></i> Facebook Profile</div>
+                            <div>Professional networking and updates</div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/carlfrancisencallado/" class="link-item" target="_blank">
+                            <div class="link-title"><i class="fab fa-linkedin"></i> LinkedIn</div>
+                            <div>Professional network and career</div>
+                        </a>
+                        <a href="https://github.com/crltjd07" class="link-item" target="_blank">
+                            <div class="link-title"><i class="fab fa-github"></i> GitHub Repository</div>
+                            <div>Software & Web Development Projects</div>
+                        </a>
+                        <a href="https://crltjd07.github.io/" class="link-item" target="_blank">
+                            <div class="link-title"><i class="fab fa-github"></i> GitHub Pages</div>
+                            <div>Live Web Projects Portfolio</div>
+                        </a>
+                        <a href="https://youtube.com/@carlfrancisencallado" class="link-item" target="_blank">
+                            <div class="link-title"><i class="fab fa-youtube"></i> YouTube Channel</div>
+                            <div>Video Projects</div>
+                        </a>
+                        <a href="https://instagram.com/crltjd.07" class="link-item" target="_blank">
+                            <div class="link-title"><i class="fab fa-instagram"></i> Instagram</div>
+                            <div>Personal highlights</div>
+                        </a>
+                        <a href="https://x.com/crltjd07" class="link-item" target="_blank">
+                            <div class="link-title"><i class="fab fa-x-twitter"></i> X (Twitter)</div>
+                            <div>Tech thoughts and updates</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages Section -->
+            <div class="content-section" id="languages">
+                <div class="page-header">
+                    <h1>Languages</h1>
+                    <div class="subtitle">My language proficiency</div>
+                </div>
+
+                <div class="card">
                     <div class="language-item">
                         <span><strong>English</strong></span>
                         <span class="proficiency">Advanced (C1)</span>
@@ -1063,36 +1022,111 @@
                         <span class="proficiency">Native Speaker</span>
                     </div>
                 </div>
-            </section>
-        </section>
+            </div>
 
-        <!-- Personal Life Album -->
-        <section class="section fade-in">
-            <h2>Personal Life Album</h2>
-            <p>A glimpse into my personal journey, hobbies, and memorable moments.</p>
-            
-            <div class="pinterest-gallery">
-                <!-- Diary Entry -->
-                <div class="diary-entry">
-                    <div class="diary-date">May 7, 2005</div>
-                    <div class="diary-content">
-                        Coming soon.
+            <!-- Personal Section -->
+            <div class="content-section" id="personal">
+                <div class="page-header">
+                    <h1>Personal Life</h1>
+                    <div class="subtitle">A glimpse into my personal journey</div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-images"></i> Photo Album</h3>
+                    <p>A collection of memorable moments and personal highlights.</p>
+                    <div class="album-grid">
+                        <div class="album-item">
+                            <div class="album-img">
+                                📸
+                            </div>
+                            <div class="album-caption">Coming soon.</div>
+                        </div>
+                        <div class="album-item">
+                            <div class="album-img">
+                                🎓
+                            </div>
+                            <div class="album-caption">Academic achievements</div>
+                        </div>
+                        <div class="album-item">
+                            <div class="album-img">
+                                💻
+                            </div>
+                            <div class="album-caption">Coding journey</div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Photo Item 1 -->
-                <div class="gallery-item">
-                    <div class="gallery-img medium">
-                        📸
+
+                <div class="card">
+                    <h3><i class="fas fa-book"></i> Personal Notes</h3>
+                    <div class="timeline-item">
+                        <div class="date">May 7, 2005</div>
+                        <div>Coming soon.</div>
                     </div>
-                    <div class="gallery-caption">Coming soon.</div>
                 </div>
             </div>
-        </section>
+        </main>
     </div>
 
     <script>
-        // Smooth scroll animation for sections
+        // Sidebar functionality
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const toggleBtn = document.getElementById('toggleBtn');
+        const navItems = document.querySelectorAll('.nav-item');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        // Toggle sidebar
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+            
+            const icon = toggleBtn.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.className = 'fas fa-chevron-right';
+            } else {
+                icon.className = 'fas fa-chevron-left';
+            }
+        });
+
+        // Navigation functionality
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all nav items
+                navItems.forEach(nav => nav.classList.remove('active'));
+                
+                // Add active class to clicked item
+                item.classList.add('active');
+                
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                const targetSection = item.getAttribute('data-section');
+                const targetElement = document.getElementById(targetSection);
+                if (targetElement) {
+                    targetElement.classList.add('active');
+                }
+            });
+        });
+
+        // Auto-collapse sidebar on mobile
+        function handleResize() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+                toggleBtn.querySelector('i').className = 'fas fa-chevron-right';
+            }
+        }
+
+        // Initial check and resize listener
+        handleResize();
+        window.addEventListener('resize', handleResize);
+
+        // Smooth animations for content sections
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1107,12 +1141,21 @@
             });
         }, observerOptions);
 
-        // Observe all sections
-        document.querySelectorAll('.section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'all 0.8s ease-out';
-            observer.observe(section);
+        // Observe all cards for animation
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+
+        // Add loading animation to page
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease-in';
+                document.body.style.opacity = '1';
+            }, 100);
         });
     </script>
 </body>
