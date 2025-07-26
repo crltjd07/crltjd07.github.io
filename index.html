@@ -173,9 +173,9 @@
         .toggle-btn {
             position: absolute;
             top: 50%;
-            right: -15px;
+            right: -10px;
             transform: translateY(-50%);
-            background: rgba(218, 112, 214, 0.9);
+            background: rgba(218, 112, 214, 0.5);
             border: none;
             border-radius: 50%;
             width: 30px;
@@ -185,7 +185,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
             z-index: 1001;
         }
@@ -237,7 +237,7 @@
             z-index: 10;
             margin-bottom: 2rem;
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.025);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -246,6 +246,7 @@
 
         .page-header h1 {
             font-size: 2.5rem;
+            font-weight: 900; 
             background: linear-gradient(45deg, #da70d6, #ff69b4, #9932cc, #ba55d3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -335,6 +336,7 @@
             flex-wrap: wrap;
             gap: 1rem;
             margin-top: 1rem;
+            justify-content: right;
         }
 
         .contact-item {
@@ -348,7 +350,6 @@
             transition: all 0.3s ease;
             font-size: 0.9rem;
             flex: 0 1 auto;
-            min-width: 180px;
             max-width: 100%;
         }
 
@@ -668,10 +669,6 @@
                 font-size: 1.5rem;
             }
 
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
             .album-grid {
                 grid-template-columns: 1fr;
                 gap: 0.5rem;
@@ -808,7 +805,12 @@
                         <div class="profile-details">
                             <h2>Carl Francis Encallado</h2>
                             <div class="role">Computer Engineering Student</div>
-                            <p>Effective Student committed to learning, developing skills in Computer Engineering and team contribution. Self-directed and energetic with superior performance in both autonomous or collaborative environments working independently and collaborating with others on group projects, showcasing exceptional teamwork and collaboration alongside advanced MS Office skills.</p>
+                            <p>
+                                Motivated Computer Engineering student with a passion for technology, learning, and community involvement. I enjoy building projects, collaborating with others, and continuously developing both my technical and soft skills. Dedicated to making a positive impact through innovation, teamwork, and service.
+                            </p>
+                            <p style="padding-top: 10px;">
+                                Experienced in web development, programming, and digital tools, with a proven ability to adapt and collaborate in diverse environments. Actively engaged in academic, community, and extracurricular activities, striving to make a positive impact through innovation and teamwork.
+                            </p>
                             
                             <div class="contact-grid">
                                 <div class="contact-item">
