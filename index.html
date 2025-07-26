@@ -21,6 +21,13 @@
             user-select: none;
         }
 
+        a {
+            text-decoration: underline dashed;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 2px;
+            text-decoration-color: #da70d6; /* Change this to your preferred color */
+        }
+
         .dashboard-container {
             display: flex;
             height: 100vh;
@@ -324,8 +331,8 @@
         }
 
         .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
             margin-top: 1rem;
         }
@@ -340,6 +347,9 @@
             border: 1px solid rgba(218, 112, 214, 0.3);
             transition: all 0.3s ease;
             font-size: 0.9rem;
+            flex: 0 1 auto;
+            min-width: 180px;
+            max-width: 100%;
         }
 
         .contact-item:hover {
@@ -393,6 +403,12 @@
         }
 
         .timeline-item h4 {
+            color: #ff69b4;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item a {
             color: #ff69b4;
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
@@ -774,8 +790,14 @@
             <!-- About Section -->
             <div class="content-section active" id="about">
                 <div class="page-header">
-                    <h1>About Me</h1>
-                    <div class="subtitle">Get to know Carl Francis Encallado</div>
+                    <h1>
+                        <i class="fas fa-person" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        About Me
+                    </h1>
+                    <div class="subtitle">
+                        <i class="fas fa-star" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        Meet Carl Francis Encallado
+                    </div>
                 </div>
 
                 <div class="card">
@@ -810,8 +832,14 @@
             <!-- Skills Section -->
             <div class="content-section" id="skills">
                 <div class="page-header">
-                    <h1>Skills & Expertise</h1>
-                    <div class="subtitle">My technical and soft skills</div>
+                    <h1>
+                        <i class="fas fa-laptop-code" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        Skills &amp; Expertise
+                    </h1>
+                    <div class="subtitle">
+                        <i class="fas fa-lightbulb" style="margin-right: 0.4rem; color: #ff69b4;"></i>
+                        My technical and soft skills
+                    </div>
                 </div>
 
                 <div class="card">
@@ -861,8 +889,14 @@
             <!-- Education Section -->
             <div class="content-section" id="education">
                 <div class="page-header">
-                    <h1>Education</h1>
-                    <div class="subtitle">My academic journey</div>
+                    <h1>
+                        <i class="fas fa-graduation-cap" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        Education
+                    </h1>
+                    <div class="subtitle">
+                        <i class="fas fa-school" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        My academic journey
+                    </div>
                 </div>
 
                 <div class="card">
@@ -913,27 +947,33 @@
             <!-- Certifications Section -->
             <div class="content-section" id="certifications">
                 <div class="page-header">
-                    <h1>Awards & Certifications</h1>
-                    <div class="subtitle">Recognition and achievements</div>
+                    <h1>
+                        <i class="fas fa-award" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        Awards &amp; Certifications
+                    </h1>
+                    <div class="subtitle">
+                        <i class="fas fa-certificate" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        Recognition and achievements
+                    </div>
                 </div>
 
                 <div class="card">
                     <div class="timeline-item">
-                        <h4>Participant – Economic and Financial Learning Program (EFLP)</h4>
+                        <h4><a href="Carl Francis_Encallado_certificate.pdf" target="_blank">Participant – Economic and Financial Learning Program (EFLP)</a></h4>
                         <div class="institution">Bangko Sentral ng Pilipinas (BSP)</div>
                         <div class="date">July 24, 2025</div>
                         <p>Attended a financial literacy program titled "Enabling Employees to Make Better Choices Through Economic and Financial Understanding," focused on empowering the workforce with informed decision-making skills in personal finance and economics.</p>
                     </div>
 
                     <div class="timeline-item">
-                        <h4>Student Membership – Institute of Computer Engineers of the Philippines (ICpEP.SE)</h4>
+                        <h4><a href="Southern Luzon State University - Main Campus_ENCALLADO_CARL FRANCIS.pdf" target="_blank">Student Membership – Institute of Computer Engineers of the Philippines (ICpEP.SE)</a></h4>
                         <div class="institution">Institute of Computer Engineers of the Philippines (ICpEP.SE)</div>
                         <div class="date">November 2023</div>
                         <p>Recognized as a certified student member (ID: R4A-SE-2023N-1185) for the 2023–2024 academic year, with active engagement in emerging tech initiatives, engineering workshops, and industry networking.</p>
                     </div>
 
                     <div class="timeline-item">
-                        <h4>Proponent – Handog ng Mag-aaral sa Kapwa Mag-aaral: A Community Outreach Program</h4>
+                        <h4><a href="Handog ng Mag-aaral sa Kapwa Mag-aaral, A Community Outreach Program.mp4" target="_blank">Proponent – Handog ng Mag-aaral sa Kapwa Mag-aaral: A Community Outreach Program</a></h4>
                         <div class="institution">Grade 12 STEM Students, MSEMSAT Batch '23</div>
                         <div class="date">January 22, 2023</div>
                         <p>Co-led a community outreach initiative focused on engaging children through recreational and educational activities, promoting early learning, social interaction, and youth involvement in community service.</p>
@@ -947,21 +987,21 @@
                     </div>
 
                     <div class="timeline-item">
-                        <h4>Participant – Resilience Hour: A Webinar on Disaster Rehabilitation and Recovery</h4>
+                        <h4><a href="W4NDRM-A75 ENCALLADO, CARL FRANCIS T.pdf" target="_blank">Participant – Resilience Hour: A Webinar on Disaster Rehabilitation and Recovery</a></h4>
                         <div class="institution">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
                         <div class="date">July 28, 2022</div>
                         <p>Attended a tech-aligned webinar discussing digital systems for post-disaster recovery, risk management infrastructure, and resilience-building solutions.</p>
                     </div>
 
                     <div class="timeline-item">
-                        <h4>Participant – Microfinance Resiliency: The Era of Pandemic and Digital Transformation</h4>
+                        <h4><a href="CARL FRANCIS T. ENCALLADO - MFR-0145.pdf" target="_blank">Participant – Microfinance Resiliency: The Era of Pandemic and Digital Transformation</a></h4>
                         <div class="institution">Polytechnic University of the Philippines (PUP)</div>
                         <div class="date">July 23, 2022</div>
                         <p>Explored the role of digital innovation in sustaining microfinance systems during global disruptions. Gained insights into fintech adaptation, remote financial services, and inclusive economic technologies.</p>
                     </div>
 
                     <div class="timeline-item">
-                        <h4>Participant – Resilience Hour: A Webinar on Disaster Response</h4>
+                        <h4><a href="W3NDRM-A416 ENCALLADO, CARL FRANCIS T.pdf" target="_blank">Participant – Resilience Hour: A Webinar on Disaster Response</a></h4>
                         <div class="institution">National Disaster Risk Reduction and Management Council (NDRRMC)</div>
                         <div class="date">July 21, 2022</div>
                         <p>Participated in a tech-informed disaster response webinar highlighting digital coordination tools, risk communication systems, and resilience strategies.</p>
@@ -972,8 +1012,14 @@
             <!-- Projects Section -->
             <div class="content-section" id="projects">
                 <div class="page-header">
-                    <h1>Featured Projects</h1>
-                    <div class="subtitle">My development projects and milestones</div>
+                    <h1>
+                        <i class="fas fa-project-diagram" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        Featured Projects
+                    </h1>
+                    <div class="subtitle">
+                        <i class="fas fa-code" style="margin-right: 0.5rem; color: #ff69b4;"></i>
+                        My development projects and milestones
+                    </div>
                 </div>
 
                 <div class="card">
@@ -1003,8 +1049,14 @@
             <!-- Links Section -->
             <div class="content-section" id="links">
                 <div class="page-header">
-                    <h1>Professional Links</h1>
-                    <div class="subtitle">Connect with me on various platforms</div>
+                    <h1>
+                        <i class="fas fa-link" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        Professional Links
+                    </h1>
+                    <div class="subtitle">
+                        <i class="fas fa-share-alt" style="margin-right: 0.5rem; color: #ff69b4;"></i>
+                        Connect with me on various platforms
+                    </div>
                 </div>
 
                 <div class="card">
@@ -1044,8 +1096,14 @@
             <!-- Languages Section -->
             <div class="content-section" id="languages">
                 <div class="page-header">
-                    <h1>Languages</h1>
-                    <div class="subtitle">My language proficiency</div>
+                    <h1>
+                        <i class="fas fa-language" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        Languages
+                    </h1>
+                    <div class="subtitle">
+                        <i class="fas fa-globe" style="margin-right: 0.5rem; color: #ff69b4;"></i>
+                        My language proficiency
+                    </div>
                 </div>
 
                 <div class="card">
@@ -1063,8 +1121,14 @@
             <!-- Personal Section -->
             <div class="content-section" id="personal">
                 <div class="page-header">
-                    <h1>Personal Life</h1>
-                    <div class="subtitle">A glimpse into my personal journey</div>
+                    <h1>
+                        <i class="fas fa-user" style="margin-right: 0.5rem; color: #da70d6;"></i>
+                        Personal Life
+                    </h1>
+                    <div class="subtitle">
+                        <i class="fas fa-clock" style="margin-right: 0.5rem; color: #ff69b4;"></i>
+                        A glimpse into my personal journey
+                    </div>
                 </div>
 
                 <div class="card">
@@ -1192,6 +1256,52 @@
                 document.body.style.transition = 'opacity 0.5s ease-in';
                 document.body.style.opacity = '1';
             }, 100);
+        });
+        
+        // Navigation functionality
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Remove active class from all nav items
+                navItems.forEach(nav => nav.classList.remove('active'));
+
+                // Add active class to clicked item
+                item.classList.add('active');
+
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show target section
+                const targetSection = item.getAttribute('data-section');
+                const targetElement = document.getElementById(targetSection);
+                if (targetElement) {
+                    targetElement.classList.add('active');
+                }
+
+                // Save selected tab to localStorage
+                localStorage.setItem('selectedTab', targetSection);
+            });
+        });
+
+        // Restore last selected tab on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectedTab = localStorage.getItem('selectedTab');
+            if (selectedTab) {
+                // Remove all active classes
+                navItems.forEach(nav => nav.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+
+                // Activate the saved tab
+                const navToActivate = Array.from(navItems).find(item => item.getAttribute('data-section') === selectedTab);
+                const sectionToActivate = document.getElementById(selectedTab);
+                if (navToActivate && sectionToActivate) {
+                    navToActivate.classList.add('active');
+                    sectionToActivate.classList.add('active');
+                }
+            }
         });
     </script>
 </body>
