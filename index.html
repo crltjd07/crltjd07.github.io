@@ -1201,13 +1201,21 @@
                 contentSections.forEach(section => {
                     section.classList.remove('active');
                 });
-                
+
                 // Show target section
                 const targetSection = item.getAttribute('data-section');
                 const targetElement = document.getElementById(targetSection);
                 if (targetElement) {
                     targetElement.classList.add('active');
+                    // Scroll to top of content smoothly
+                    mainContent.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                 }
+
+                // Save selected tab to localStorage
+                localStorage.setItem('selectedTab', targetSection);
             });
         });
 
